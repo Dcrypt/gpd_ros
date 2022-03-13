@@ -32,7 +32,7 @@ add_message_files(FILES CloudIndexed.msg CloudSamples.msg CloudSources.msg Grasp
   SamplesMsg.msg)
 
 ## Generate services in the 'srv' folder
-add_service_files(FILES detect_grasps.srv)
+add_service_files(FILES detect_grasps.srv detect_grasps_custom.srv detect_grasps_custom_sampled.srv)
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(DEPENDENCIES geometry_msgs sensor_msgs std_msgs)
@@ -70,10 +70,12 @@ add_library(${PROJECT_NAME}_grasp_plotter src/${PROJECT_NAME}/grasp_plotter.cpp)
 ## Declare a C++ executable
 add_executable(${PROJECT_NAME}_detect_grasps src/gpd_ros/grasp_detection_node.cpp)
 add_executable(${PROJECT_NAME}_detect_grasps_server src/gpd_ros/grasp_detection_server.cpp)
+add_executable(${PROJECT_NAME}_detect_grasps_custom src/gpd_ros/grasp_detection_custom.cpp)
 
 ## Rename C++ executable without prefix
 set_target_properties(${PROJECT_NAME}_detect_grasps PROPERTIES OUTPUT_NAME detect_grasps PREFIX "")
 set_target_properties(${PROJECT_NAME}_detect_grasps_server PROPERTIES OUTPUT_NAME detect_grasps_server PREFIX "")
+set_target_properties(${PROJECT_NAME}_detect_grasps_custom PROPERTIES OUTPUT_NAME detect_grasps_custom PREFIX "")
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_detect_grasps
@@ -83,6 +85,12 @@ target_link_libraries(${PROJECT_NAME}_detect_grasps
                       ${PCL_LIBRARIES}
                       ${catkin_LIBRARIES})
 target_link_libraries(${PROJECT_NAME}_detect_grasps_server
+                      ${PROJECT_NAME}_grasp_messages
+                      ${PROJECT_NAME}_grasp_plotter
+                      ${GPD_LIB}
+                      ${PCL_LIBRARIES}
+                      ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_detect_grasps_custom
                       ${PROJECT_NAME}_grasp_messages
                       ${PROJECT_NAME}_grasp_plotter
                       ${GPD_LIB}

@@ -1,0 +1,5 @@
+sensor_msgs/PointCloud2 seg_cloud
+
+sensor_msgs/PointCloud2 full_cloud
+---
+gpd_ros/GraspConfigList grasp_configs

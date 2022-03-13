@@ -1,0 +1,6 @@
+sensor_msgs/PointCloud2 cloud
+
+# The samples, as (x,y,z) points, at which to search for grasp candidates.
+gpd_ros/SamplesMsg samples
+---
+gpd_ros/GraspConfigList grasp_configs

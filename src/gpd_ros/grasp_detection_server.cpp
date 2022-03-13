@@ -6,16 +6,16 @@ GraspDetectionServer::GraspDetectionServer(ros::NodeHandle& node)
   cloud_camera_ = NULL;
 
   // set camera viewpoint to default origin
-  std::vector<double> camera_position;
-  node.getParam("camera_position", camera_position);
-  view_point_ << camera_position[0], camera_position[1], camera_position[2];
+  //std::vector<double> camera_position;
+  //node.getParam("camera_position", camera_position);
+  //view_point_ << camera_position[0], camera_position[1], camera_position[2];
 
   std::string cfg_file;
   node.param("config_file", cfg_file, std::string(""));
   grasp_detector_ = new gpd::GraspDetector(cfg_file);
 
   std::string rviz_topic;
-  node.param("rviz_topic", rviz_topic, std::string(""));
+  node.param("rviz_topic", rviz_topic, std::string("plot_grasps"));
 
   if (!rviz_topic.empty())
   {

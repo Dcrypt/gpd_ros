@@ -79,7 +79,7 @@ void GraspDetectionNode::run()
   ROS_INFO("Waiting for point cloud to arrive ...");
 
   while (ros::ok()) {
-    if (has_cloud_) {
+    if (has_cloud_) {  //recieved from callback
       // Detect grasps in point cloud.
       std::vector<std::unique_ptr<gpd::candidate::Hand>> grasps = detectGraspPoses();
 
@@ -148,7 +148,8 @@ void GraspDetectionNode::cloud_callback(const sensor_msgs::PointCloud2& msg)
 {
   if (!has_cloud_)
   {
-    delete cloud_camera_;
+    if(!cloud_camera_)
+        delete cloud_camera_;
     cloud_camera_ = NULL;
 
     Eigen::Matrix3Xd view_points(3,1);
